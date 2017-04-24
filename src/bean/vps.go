@@ -11,8 +11,10 @@ func (vpsBean *VpsBean) add(vps *schema.Vps) (int64, error) {
 	return vpsBean.engine.Insert(vps)
 }
 
-func (vpsBean *VpsBean) findAll() []schema.Vps {
+func (vpsBean *VpsBean) findAll() ([]schema.Vps, error) {
 	var vpsList []schema.Vps
-	vpsBean.engine.Find(&vpsList)
-	return vpsList
+	if err := vpsBean.engine.Find(&vpsList); err != nil {
+		return nil, err
+	}
+	return vpsList, nil
 }

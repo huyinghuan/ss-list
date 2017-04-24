@@ -2,7 +2,8 @@ package schema
 
 //Vps 虚拟机配置
 type Vps struct {
-	IP         string
+	Id         int64  `xorm:"unique"`
+	IP         string `xorm:"ip"`
 	Port       string
 	Password   string
 	Encryption string

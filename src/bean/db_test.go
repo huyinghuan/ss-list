@@ -1,18 +1,27 @@
 package bean
 
-import "testing"
-import "fmt"
+import (
+	"fmt"
+	"schema"
+	"testing"
+)
 
 func TestAll(t *testing.T) {
 	engine, err := GetDBConenct()
 	if err != nil {
 		t.Fail()
 	}
-	results, queryErr := engine.Query("select * from vps")
-	if queryErr != nil {
+	vpsBean := &VpsBean{engine}
+	vps := &schema.Vps{}
+	vps.IP = "12.23"
+	if f, e := vpsBean.add(vps); e != nil {
+		fmt.Println(e)
 		t.Fail()
+	} else {
+		fmt.Println(f)
 	}
-	for index, value := range results {
-		fmt.Println(index, value)
+	list, _ := vpsBean.findAll()
+	for _, item := range list {
+		fmt.Println(item)
 	}
 }
