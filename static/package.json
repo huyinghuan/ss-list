@@ -1,0 +1,34 @@
+{
+  "name": "views",
+  "version": "1.0",
+  "dependencies": {},
+  "silky-version": "2.3.9",
+  "silky-plugin": {
+    "sp-hbs": {},
+    "sp-proxy": {
+      "from": ["^/admin"],
+      "attribute": "i",
+      "to": "http://localhost:6300" 
+    },
+    "sp-hbs-scan-ext": {}
+  },
+  "silky": {
+    "port": 14422,
+    "index": "index.html",
+    "autoindex": true
+  },
+  "silky-pubPath": "node_modules",
+  "silky-build": {
+    "outdir": "./build",
+    "ignore": [
+      "node_modules",
+      "(\\/\\.[^/]+)$"
+    ]
+  },
+  "description": "",
+  "devDependencies": {
+    "sp-hbs": "1.3.1",
+    "sp-hbs-scan-ext": "1.0.0",
+    "sp-proxy": "1.0.1"
+  }
+}
