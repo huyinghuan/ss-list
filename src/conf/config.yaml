@@ -1,3 +1,0 @@
-db: 
-  driver: sqlite3
-  connect: ./ss.db

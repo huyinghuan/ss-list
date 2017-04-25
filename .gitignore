@@ -1,6 +1,1 @@
-bin
-.vscode
-pkg
-golang.org
-gopkg.in
-github.com
+vendor
