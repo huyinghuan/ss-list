@@ -1,4 +1,4 @@
-body{
-  background-image: url("/images/bg.png");
-  background-repeat: repeat-x;
+body.bg{
+  background-image: url("/images/bg.png") !important;
+  background-repeat: repeat-x!important;
 }
