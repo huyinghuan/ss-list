@@ -8,3 +8,4 @@ gopkg.in
 appengine
 appengine_internal
 node_modules
+*.db
