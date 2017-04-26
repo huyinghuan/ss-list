@@ -1,1 +1,10 @@
-vendor
+github.com
+gopkg.in
+main
+go4.org
+golang.org
+google.golang.org
+gopkg.in
+appengine
+appengine_internal
+node_modules

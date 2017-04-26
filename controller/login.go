@@ -3,17 +3,22 @@ package controller
 import iris "gopkg.in/kataras/iris.v6"
 import "fmt"
 
-func LoginView(ctx *iris.Context) {
-	//ctx.ViewLayout("layout.html")
-	//iris.RenderOptions{"layout": "layout.html"}
-	// iris.RenderOptions{"gzip": true}
-	ctx.Render("login.html", iris.Map{})
+type LoginUser struct {
+	Name     string `form:"name" json:"name"`
+	Password string `form:"password" json:"password"`
 }
 
 func LoginPost(ctx *iris.Context) {
-	form := ctx.FormValues()
-	for key, value := range form {
-		fmt.Println(key, value)
+	user := LoginUser{}
+	if err := ctx.ReadForm(&user); err != nil {
+		fmt.Println(err)
+		ctx.SetStatusCode(500)
+		return
 	}
-	ctx.JSON(200, map[string]string{"hello": "world"})
+	if user.Name == "admin" && user.Password == "!admin" {
+		ctx.Session().Set("logined", true)
+		ctx.SetStatusCode(200)
+	} else {
+		ctx.SetStatusCode(403)
+	}
 }
