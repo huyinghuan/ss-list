@@ -20,7 +20,11 @@ func main() {
 		cors.New(cors.Options{AllowedOrigins: []string{"*"}}))
 
 	admin := app.Party("/admin", controller.AuthCtrl)
-	admin.Get("/vps", controller.ManagerCtrl)
+
+	vpsCtrl := &controller.VpsCtrl{}
+	admin.Get("/vps/public", vpsCtrl.GetPublic)
+	admin.Get("/vps", vpsCtrl.GetAll)
+	admin.Post("/vps", vpsCtrl.Post)
 
 	admin.Post("/login", controller.LoginPost)
 

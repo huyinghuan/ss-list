@@ -2,12 +2,12 @@ package schema
 
 //Vps 虚拟机配置
 type Vps struct {
-	Id         int64  `xorm:"unique"`
-	IP         string `xorm:"ip"`
-	Port       string
-	Password   string
-	Encryption string
-	Veid       string
-	Apikey     string
-	Private    bool
+	ID         int64  `xorm:"unique" json:"id"`
+	IP         string `xorm:"ip" json:"ip" form:"ip"`
+	Port       string `json:"port" form:"port"`
+	Password   string `json:"password" form:"password"`
+	Encryption string `json:"encryption" form:"encryption"`
+	Veid       string `json:"veid" form:"veid"`
+	Apikey     string `json:"apikey" form:"apikey"`
+	Private    bool   `json:"private" form:"private"`
 }

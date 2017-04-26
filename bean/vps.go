@@ -6,17 +6,25 @@ import (
 	"github.com/go-xorm/xorm"
 )
 
-type VpsBean struct {
-	engine *xorm.Engine
+type VpsBean struct{}
+
+func (vpsBean *VpsBean) Add(vps *schema.Vps) (int64, error) {
+	var engine *xorm.Engine
+	var err error
+	if engine, err = GetDBConenct(); err != nil {
+		return 0, err
+	}
+	return engine.Insert(vps)
 }
 
-func (vpsBean *VpsBean) add(vps *schema.Vps) (int64, error) {
-	return vpsBean.engine.Insert(vps)
-}
-
-func (vpsBean *VpsBean) findAll() ([]schema.Vps, error) {
+func (vpsBean *VpsBean) FindAll() ([]schema.Vps, error) {
 	var vpsList []schema.Vps
-	if err := vpsBean.engine.Find(&vpsList); err != nil {
+	var engine *xorm.Engine
+	var err error
+	if engine, err = GetDBConenct(); err != nil {
+		return nil, err
+	}
+	if err := engine.Find(&vpsList); err != nil {
 		return nil, err
 	}
 	return vpsList, nil

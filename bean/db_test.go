@@ -14,13 +14,13 @@ func TestAll(t *testing.T) {
 	vpsBean := &VpsBean{engine}
 	vps := &schema.Vps{}
 	vps.IP = "12.23"
-	if f, e := vpsBean.add(vps); e != nil {
+	if f, e := vpsBean.Add(vps); e != nil {
 		fmt.Println(e)
 		t.Fail()
 	} else {
 		fmt.Println(f)
 	}
-	list, _ := vpsBean.findAll()
+	list, _ := vpsBean.FindAll()
 	for _, item := range list {
 		fmt.Println(item)
 	}

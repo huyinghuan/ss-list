@@ -3,8 +3,6 @@ package utils
 import (
 	"io/ioutil"
 
-	"path/filepath"
-
 	"gopkg.in/yaml.v2"
 )
 
@@ -34,7 +32,7 @@ func ReadConfig(source string, config *Config) error {
 
 //GetConfig 获取配置文件
 func GetConfig() (config Config) {
-	configFilePath, _ := filepath.Abs("../conf/config.yaml")
-	ReadConfig(configFilePath, &config)
+	//configFilePath, _ := filepath.Abs("../conf/config.yaml")
+	ReadConfig("conf/config.yaml", &config)
 	return config
 }

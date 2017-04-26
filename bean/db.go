@@ -10,7 +10,6 @@ import (
 
 func GetDBConenct() (*xorm.Engine, error) {
 	config := utils.GetConfig()
-
 	engine, connectErr := xorm.NewEngine(config.Db.Driver, config.Db.Connect)
 	if connectErr != nil {
 		return nil, connectErr
