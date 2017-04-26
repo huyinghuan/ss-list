@@ -29,3 +29,16 @@ func (vpsBean *VpsBean) FindAll() ([]schema.Vps, error) {
 	}
 	return vpsList, nil
 }
+
+func (vpsBean *VpsBean) FindPublic() ([]schema.Vps, error) {
+	var vpsList []schema.Vps
+	var engine *xorm.Engine
+	var err error
+	if engine, err = GetDBConenct(); err != nil {
+		return nil, err
+	}
+	if err := engine.Cols("ip", "Password", "Port", "Encryption").Find(&vpsList); err != nil {
+		return nil, err
+	}
+	return vpsList, nil
+}

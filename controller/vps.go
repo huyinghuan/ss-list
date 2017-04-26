@@ -7,8 +7,6 @@ import (
 
 	"log"
 
-	"fmt"
-
 	iris "gopkg.in/kataras/iris.v6"
 )
 
@@ -27,8 +25,6 @@ func (vpsCtrl *VpsCtrl) GetAll(ctx *iris.Context) {
 }
 func (vpsCtrl *VpsCtrl) Post(ctx *iris.Context) {
 	vpsBean := &bean.VpsBean{}
-	fmt.Println(ctx.FormValue("ip"))
-	fmt.Println(ctx.FormValues())
 	vpsModel := schema.Vps{}
 	if err := ctx.ReadForm(&vpsModel); err != nil {
 		log.Fatal(err)
@@ -47,5 +43,12 @@ func (vpsCtrl *VpsCtrl) Post(ctx *iris.Context) {
 }
 
 func (vpsCtrl *VpsCtrl) GetPublic(ctx *iris.Context) {
-
+	vpsBean := &bean.VpsBean{}
+	if list, err := vpsBean.FindPublic(); err != nil {
+		ctx.SetStatusCode(500)
+		ctx.Writef("查询数据失败")
+		return
+	} else {
+		ctx.JSON(200, list)
+	}
 }

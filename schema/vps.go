@@ -10,4 +10,5 @@ type Vps struct {
 	Veid       string `json:"veid" form:"veid"`
 	Apikey     string `json:"apikey" form:"apikey"`
 	Private    bool   `json:"private" form:"private"`
+	Network    string `json:"network"`
 }
