@@ -55,7 +55,10 @@ func (vpsCtrl *VpsCtrl) GetPublic(ctx *iris.Context) {
 	}
 
 	for index, item := range vpsList {
-		vpsList[index].Network, vpsList[index].DataNextReset = utils.GetVPSNetwork(item.Veid, item.Apikey)
+		vpsInfo := utils.GetVPSNetwork(item.Veid, item.Apikey)
+		vpsList[index].Network = vpsInfo.Remaining
+		vpsList[index].DataNextReset = vpsInfo.DataReset
+		vpsList[index].IP = vpsInfo.IPAddresses[0]
 	}
 
 	ctx.JSON(200, vpsList)
