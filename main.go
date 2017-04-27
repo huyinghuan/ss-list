@@ -22,11 +22,13 @@ func main() {
 	admin := app.Party("/admin", controller.AuthCtrl)
 
 	vpsCtrl := &controller.VpsCtrl{}
-	admin.Get("/vps/public", vpsCtrl.GetPublic)
 	admin.Get("/vps", vpsCtrl.GetAll)
 	admin.Post("/vps", vpsCtrl.Post)
 
 	admin.Post("/login", controller.LoginPost)
+
+	public := app.Party("/public", func(ctx *iris.Context) { ctx.Next() })
+	public.Get("/vps", vpsCtrl.GetPublic)
 
 	app.Listen(":6300")
 }

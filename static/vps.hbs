@@ -51,7 +51,7 @@
         vpsList: []
       }
     })
-    $.get("/admin/vps/public").then(function(data){
+    $.get("/public/vps").then(function(data){
       app.vpsList = data
     }).fail(function(resp){
       if(resp.status == 401){
