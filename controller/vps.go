@@ -2,6 +2,7 @@ package controller
 
 import (
 	"ss-list/bean"
+	"ss-list/utils"
 
 	"ss-list/schema"
 
@@ -44,11 +45,18 @@ func (vpsCtrl *VpsCtrl) Post(ctx *iris.Context) {
 
 func (vpsCtrl *VpsCtrl) GetPublic(ctx *iris.Context) {
 	vpsBean := &bean.VpsBean{}
-	if list, err := vpsBean.FindPublic(); err != nil {
+	var vpsList []schema.Vps
+	if list, err := vpsBean.FindAll(); err != nil {
 		ctx.SetStatusCode(500)
 		ctx.Writef("查询数据失败")
 		return
 	} else {
-		ctx.JSON(200, list)
+		vpsList = list
 	}
+
+	for index, item := range vpsList {
+		vpsList[index].Network, vpsList[index].DataNextReset = utils.GetVPSNetwork(item.Veid, item.Apikey)
+	}
+
+	ctx.JSON(200, vpsList)
 }
