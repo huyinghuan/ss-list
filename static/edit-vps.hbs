@@ -65,33 +65,55 @@
       </div>
       <script src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
       <script>
+        function getUrlVars(field){
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for(var i = 0; i < hashes.length; i++)
+            {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return field ? vars[field] : vars;
+        }
+        
         var app = new Vue({
           el: "#app",
           data: {
-            vps: {
-              encryption: "aes-256-cfb",
-              port:"443"
-            }
+            vps: {}
           },
           methods:{
             save: function(){
-              var self = this
-              $.post("/admin/vps", this.vps).then(function(){
-                self.vps = {
-                  encryption: "aes-256-cfb",
-                  port:"443"
-                }
+              var id = getUrlVars('id')
+              if(!id){
+                return
+              }
+              $.ajax({
+                url:"/admin/vps/"+id,
+                method: "PUT",
+                data: this.vps
+              }).done(function(){
+                alert('modify success')
               }).fail(function(resp){
                 if(resp.status == 401){
                   location.href = "/login.html"
-                  return
                 }
-                console.log(resp.text)
               })
             }
           }
         })
+        function getVps(id){
+          $.get("/admin/vps/"+id).then(function(data){
+            app.vps  = data
+          }).fail(function(resp){
+            if(resp.status == 401){
+              location.href = "/login.html"
+              return
+            }
+          })
+        }
       </script>
+
 </body>
 
 </html>

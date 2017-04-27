@@ -43,15 +43,27 @@ func (vpsBean *VpsBean) FindPublic() ([]schema.Vps, error) {
 	return vpsList, nil
 }
 
-func (vpsBean *VpsBean) Update(id int64, vps *schema.Vps) error {
+func (vpsBean *VpsBean) Update(id int64, update map[string]interface{}) error {
 	var engine *xorm.Engine
 	var err error
 	if engine, err = GetDBConenct(); err != nil {
 		return err
 	}
-
-	if _, err := engine.Id(id).Update(vps); err != nil {
+	if _, err = engine.Table(new(schema.Vps)).Id(id).Update(update); err != nil {
 		return err
 	}
 	return nil
+}
+
+func (vpsBean *VpsBean) Get(id int64) (*schema.Vps, error) {
+	var engine *xorm.Engine
+	var err error
+	if engine, err = GetDBConenct(); err != nil {
+		return nil, err
+	}
+	vps := new(schema.Vps)
+	if _, err = engine.Id(id).Get(vps); err != nil {
+		return nil, err
+	}
+	return vps, nil
 }

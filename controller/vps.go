@@ -54,7 +54,23 @@ func (vpsCtrl *VpsCtrl) Post(ctx *iris.Context) {
 	ctx.SetStatusCode(200)
 	ctx.Done()
 }
+func (vpsCtrl *VpsCtrl) Get(ctx *iris.Context) {
+	vpsBean := &bean.VpsBean{}
+	id, paramsErr := ctx.ParamInt64("id")
+	if paramsErr != nil {
+		log.Fatal(paramsErr)
+		ctx.SetStatusCode(403)
+		ctx.Writef("数据不存在")
+		return
+	}
 
+	if vps, err := vpsBean.Get(id); err != nil {
+		ctx.SetStatusCode(403)
+		ctx.Writef("数据不存在")
+	} else {
+		ctx.JSON(200, vps)
+	}
+}
 func (vpsCtrl *VpsCtrl) Put(ctx *iris.Context) {
 	id, paramsErr := ctx.ParamInt64("id")
 	if paramsErr != nil {
@@ -65,18 +81,18 @@ func (vpsCtrl *VpsCtrl) Put(ctx *iris.Context) {
 	}
 
 	vpsBean := &bean.VpsBean{}
-	vpsModel := schema.Vps{}
+	vpsModel := make(map[string]interface{})
+
 	if err := ctx.ReadForm(&vpsModel); err != nil {
 		log.Fatal(err)
 		ctx.SetStatusCode(403)
 		ctx.Writef("上传表单错误")
 		return
 	}
-	fmt.Println(vpsModel)
 	if r, e := json.Marshal(vpsModel); e == nil {
 		fmt.Println(string(r))
 	}
-	if err := vpsBean.Update(id, &vpsModel); err != nil {
+	if err := vpsBean.Update(id, vpsModel); err != nil {
 		log.Fatal(err)
 		ctx.SetStatusCode(500)
 		ctx.Writef("修改数据失败")
