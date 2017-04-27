@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-{{import "module/pc-header.hbs"}}
-{{!--  --}}
+{{import "module/pc-header.hbs"}} {{!-- --}}
+
 <body>
 
   <div class="ui grid" id="container">
@@ -27,17 +27,34 @@
                 <table class="ui selectable celled striped table">
                   <thead>
                     <tr>
-                      <!--<th>管理员ID</th>-->
                       <th>ip</th>
                       <th>port</th>
-                      <th class="collapsing">password</th>
-                      <th class="collapsing">appid</th>
-                      <th class="collapsing">scret</th>
-                      <th class="collapsing">操作</th>
+                      <th>password</th>
+                      <th>scret</th>
+                      <th>veid</th>
+                      <th>apikey</th>
+                      <th>private</th>
+                      <th>操作</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  {{{{raw}}}}
+                  <tbody id="app">
+                    <tr v-for="vps in vpsList">
+                      <td>{{vps.ip}}</td>
+                      <td>{{vps.port}}</td>
+                      <td>{{vps.password}}</td>
+                      <td>{{vps.encryption}}</td>
+                      <td>{{vps.veid}}</td>
+                      <td>{{vps.apikey}}</td>
+                      <td>{{vps.private}}</td>
+                      <td>
+                        <button class="ui red mini button" v-on:click="lock(vps.id)">锁定</button>
+                        <button class="ui blue mini button" v-on:click="unlock(vps.id)">公开</button>
+                        <a class="ui blue mini button" href="/vps-edit.html?id={{vps.id}}">编辑</a>
+                      </td>
+                    </tr>
                   </tbody>
+                  {{{{/raw}}}}
                 </table>
               </div>
             </div>
@@ -45,6 +62,53 @@
           <div class="ui center aligned container copyright">copyright©apying.com</div>
         </div>
       </div>
+      <script src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+      <script>
+        var app = new Vue({
+          el:"#app",
+          data: {
+            vpsList:[]
+          },
+          methods:{
+            lock:function(id){
+              $.ajax({
+                url:"/admin/vps/"+id,
+                method: "PUT",
+                data: {private: false}
+              }).done(function(){
+                freshData()
+              }).fail(function(resp){
+                if(resp.status == 401){
+                  location.href = "/login.html"
+                }
+              })
+            },
+            unlock:function(id){
+              $.ajax({
+                url:"/admin/vps/"+id,
+                method: "PUT",
+                data: {private: true}
+              }).done(function(){
+                freshData()
+              }).fail(function(resp){
+                if(resp.status == 401){
+                  location.href = "/login.html"
+                }
+              })
+            }
+          }
+        })
+        var freshData = function(){
+          $.get("/admin/vps").then(function(data){
+            app.vpsList = data
+          }).fail(function(resp){
+            if(resp.status == 401){
+              location.href = "/login.html"
+            }
+          })
+        }
+        freshData()
+      </script>
 </body>
 
 </html>

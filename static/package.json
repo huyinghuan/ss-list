@@ -7,7 +7,7 @@
     "sp-hbs": {},
     "sp-proxy": {
       "from": [
-        "^/admin"
+        "^/admin", "^/public"
       ],
       "attribute": "i",
       "to": "http://localhost:6300"

@@ -37,8 +37,21 @@ func (vpsBean *VpsBean) FindPublic() ([]schema.Vps, error) {
 	if engine, err = GetDBConenct(); err != nil {
 		return nil, err
 	}
-	if err := engine.Cols("ip", "Password", "Port", "Encryption").Find(&vpsList); err != nil {
+	if err := engine.Where("private = ?", true).Find(&vpsList); err != nil {
 		return nil, err
 	}
 	return vpsList, nil
+}
+
+func (vpsBean *VpsBean) Update(id int64, vps *schema.Vps) error {
+	var engine *xorm.Engine
+	var err error
+	if engine, err = GetDBConenct(); err != nil {
+		return err
+	}
+
+	if _, err := engine.Id(id).Update(vps); err != nil {
+		return err
+	}
+	return nil
 }

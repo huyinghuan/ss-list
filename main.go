@@ -24,6 +24,7 @@ func main() {
 	vpsCtrl := &controller.VpsCtrl{}
 	admin.Get("/vps", vpsCtrl.GetAll)
 	admin.Post("/vps", vpsCtrl.Post)
+	admin.Put("/vps/:id", vpsCtrl.Put)
 
 	admin.Post("/login", controller.LoginPost)
 
