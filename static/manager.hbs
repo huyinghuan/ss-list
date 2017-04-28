@@ -48,8 +48,9 @@
                       <td>{{vps.apikey}}</td>
                       <td>{{vps.private}}</td>
                       <td>
-                        <button class="ui red mini button" v-on:click="lock(vps.id)">锁定</button>
-                        <button class="ui blue mini button" v-on:click="unlock(vps.id)">公开</button>
+                        
+                        <button class="ui red mini button" v-if="!vps.private" v-on:click="lock(vps.id)">锁定</button>
+                        <button class="ui green mini button" v-if="vps.private" v-on:click="unlock(vps.id)">公开</button>
                         <a class="ui blue mini button" :href="'/edit-vps.html?id=' + vps.id">编辑</a>
                       </td>
                     </tr>
