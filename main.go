@@ -4,7 +4,6 @@ import (
 	"ss-list/controller"
 
 	iris "gopkg.in/kataras/iris.v6"
-	"gopkg.in/kataras/iris.v6/adaptors/cors"
 	"gopkg.in/kataras/iris.v6/adaptors/httprouter"
 	"gopkg.in/kataras/iris.v6/adaptors/sessions"
 )
@@ -16,7 +15,7 @@ func main() {
 	app.Adapt(
 		iris.DevLogger(),
 		httprouter.New(),
-		sessionAdapt
+		sessionAdapt)
 
 	admin := app.Party("/admin", controller.AuthCtrl)
 
