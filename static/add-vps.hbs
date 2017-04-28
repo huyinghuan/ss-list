@@ -70,7 +70,8 @@
           data: {
             vps: {
               encryption: "aes-256-cfb",
-              port:"443"
+              port:"443",
+              private: false
             }
           },
           methods:{
@@ -79,7 +80,8 @@
               $.post("/admin/vps", this.vps).then(function(){
                 self.vps = {
                   encryption: "aes-256-cfb",
-                  port:"443"
+                  port:"443",
+                  private: false
                 }
               }).fail(function(resp){
                 if(resp.status == 401){
