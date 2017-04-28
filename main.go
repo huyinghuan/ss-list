@@ -17,7 +17,7 @@ func main() {
 		iris.DevLogger(),
 		httprouter.New(),
 		sessionAdapt,
-		cors.New(cors.Options{AllowedOrigins: []string{"localhost", "apying.com"}}))
+		cors.New(cors.Options{AllowedOrigins: []string{}}))
 
 	admin := app.Party("/admin", controller.AuthCtrl)
 
