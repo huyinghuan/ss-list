@@ -21,7 +21,7 @@
                       <th>重置时间</th>
                     </tr>
                   </thead>
-                  <tbody v-show="!loading">
+                  <tbody v-if="!loading">
                     {{{{raw}}}}
                      <tr v-for="vps in vpsList">
                        <td>{{ vps.ip }}</td>
@@ -33,7 +33,7 @@
                      </tr>
                      {{{{/raw}}}}
                   </tbody>
-                  <tbody v-show="loading">
+                  <tbody v-if="loading">
                     <tr><td colspan="6">数据加载中,请稍后...</td></tr>
                   </tbody>
                 </table>
