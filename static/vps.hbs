@@ -21,7 +21,7 @@
                       <th>重置时间</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody v-if="!loading">
                     {{{{raw}}}}
                      <tr v-for="vps in vpsList">
                        <td>{{ vps.ip }}</td>
@@ -32,6 +32,9 @@
                        <td>{{vps.data_next_reset}}</td>
                      </tr>
                      {{{{/raw}}}}
+                  </tbody>
+                  <tbody v-if="loading">
+                    数据加载中,请稍后...
                   </tbody>
                 </table>
               </div>
@@ -48,10 +51,12 @@
     var app = new Vue({
       el: '#container',
       data: {
-        vpsList: []
+        vpsList: [],
+        loading: true
       }
     })
     $.get("/public/vps").then(function(data){
+      app.loading = false
       app.vpsList = data
     }).fail(function(resp){
       if(resp.status == 401){
