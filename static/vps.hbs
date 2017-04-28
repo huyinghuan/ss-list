@@ -53,16 +53,20 @@
       data: {
         vpsList: [],
         loading: true
+      },
+      created: function(){
+        var self = this
+        $.get("/public/vps").then(function(data){
+          self.loading = false
+          self.vpsList = data
+        }).fail(function(resp){
+          if(resp.status == 401){
+            location.href="/login.html"
+          }
+        })
       }
     })
-    $.get("/public/vps").then(function(data){
-      app.loading = false
-      app.vpsList = data
-    }).fail(function(resp){
-      if(resp.status == 401){
-        location.href="/login.html"
-      }
-    })
+    
   </script>
 </body>
 </html>
