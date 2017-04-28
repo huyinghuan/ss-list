@@ -74,7 +74,7 @@
               $.ajax({
                 url:"/admin/vps/"+id,
                 method: "PUT",
-                data: {private: false}
+                data: {private: true}
               }).done(function(){
                 freshData()
               }).fail(function(resp){
@@ -87,7 +87,7 @@
               $.ajax({
                 url:"/admin/vps/"+id,
                 method: "PUT",
-                data: {private: true}
+                data: {private: false}
               }).done(function(){
                 freshData()
               }).fail(function(resp){

@@ -37,7 +37,7 @@ func (vpsBean *VpsBean) FindPublic() ([]schema.Vps, error) {
 	if engine, err = GetDBConenct(); err != nil {
 		return nil, err
 	}
-	if err := engine.Where("private = ?", true).Find(&vpsList); err != nil {
+	if err := engine.SQL("SELECT * FROM vps WHERE private = ?", "false").Find(&vpsList); err != nil {
 		return nil, err
 	}
 	return vpsList, nil

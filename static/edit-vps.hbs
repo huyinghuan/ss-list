@@ -88,6 +88,7 @@
               if(!id){
                 return
               }
+              delete this.vps["id"]
               $.ajax({
                 url:"/admin/vps/"+id,
                 method: "PUT",
@@ -102,7 +103,8 @@
             }
           }
         })
-        function getVps(id){
+        function getVps(){
+          var id = getUrlVars('id')
           $.get("/admin/vps/"+id).then(function(data){
             app.vps  = data
           }).fail(function(resp){
@@ -112,6 +114,7 @@
             }
           })
         }
+        getVps()
       </script>
 
 </body>
