@@ -9,3 +9,5 @@ appengine
 appengine_internal
 node_modules
 *.db
+*.run
+build
