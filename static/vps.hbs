@@ -58,15 +58,17 @@
         var self = this
         $.ajax({
 					url:"/public/vps",
-					method: "GET"
-				}).then(function(data){
-          self.loading = false
-          self.vpsList = data
-        }).fail(function(resp){
-          if(resp.status == 401){
-            location.href="/login.html"
+					method: "GET",
+          success: function(data){
+            self.loading = false
+            self.vpsList = data
+          },
+          error: function(resp){
+            if(resp.status == 401){
+              location.href="/login.html"
+            }
           }
-        })
+				})
       }
     })
     

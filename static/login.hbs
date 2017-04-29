@@ -33,11 +33,13 @@
 				$.ajax({
 					url:"/admin/login",
 					method: "POST",
-					data:  {name: $("#name").val(), password: $("#password").val()}
-				}).then(function(data){
-					location.href = "/manager.html"
-				}).fail(function(resp){
-					console.log(resp.status, resp.responseJSON)
+					data:  {name: $("#name").val(), password: $("#password").val()},
+					success: function(data){
+						location.href = "/manager.html"
+					},
+					error:function(resp){
+						console.log(resp.status, resp.responseJSON)
+					}
 				})
 			})
 		})

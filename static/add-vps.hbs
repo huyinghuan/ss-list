@@ -70,30 +70,31 @@
           data: {
             vps: {
               encryption: "aes-256-cfb",
-              port:"443",
+              port: "443",
               private: false
             }
           },
-          methods:{
-            save: function(){
+          methods: {
+            save: function () {
               var self = this
               $.ajax({
-                url:"/admin/vps",
+                url: "/admin/vps",
                 method: "POST",
-                data: this.vps
-              })
-              .then(function(){
-                self.vps = {
-                  encryption: "aes-256-cfb",
-                  port:"443",
-                  private: false
+                data: this.vps,
+                success: function () {
+                  self.vps = {
+                    encryption: "aes-256-cfb",
+                    port: "443",
+                    private: false
+                  }
+                },
+                error: function (resp) {
+                  if (resp.status == 401) {
+                    location.href = "/login.html"
+                    return
+                  }
+                  console.log(resp.text)
                 }
-              }).fail(function(resp){
-                if(resp.status == 401){
-                  location.href = "/login.html"
-                  return
-                }
-                console.log(resp.text)
               })
             }
           }

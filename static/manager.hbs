@@ -75,12 +75,12 @@
               $.ajax({
                 url:"/admin/vps/"+id,
                 method: "PUT",
-                data: {private: true}
-              }).done(function(){
-                freshData()
-              }).fail(function(resp){
-                if(resp.status == 401){
-                  location.href = "/login.html"
+                data: {private: true},
+                success: freshData,
+                error: function(resp){
+                  if(resp.status == 401){
+                    location.href = "/login.html"
+                  }
                 }
               })
             },
@@ -88,26 +88,28 @@
               $.ajax({
                 url:"/admin/vps/"+id,
                 method: "PUT",
-                data: {private: false}
-              }).done(function(){
-                freshData()
-              }).fail(function(resp){
-                if(resp.status == 401){
-                  location.href = "/login.html"
+                data: {private: false},
+                success: freshData,
+                error: function(resp){
+                  if(resp.status == 401){
+                    location.href = "/login.html"
+                  }
                 }
               })
             }
           }
         })
         var freshData = function(){
-        $.ajax({
-					url:"/admin/vps",
-					method: "GET"
-				}).then(function(data){
-            app.vpsList = data
-          }).fail(function(resp){
-            if(resp.status == 401){
-              location.href = "/login.html"
+          $.ajax({
+            url:"/admin/vps",
+            method: "GET",
+            success: function(data){
+              app.vpsList = data
+            },
+            error: function(resp){
+              if(resp.status == 401){
+                location.href = "/login.html"
+              }
             }
           })
         }
