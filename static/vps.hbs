@@ -56,7 +56,10 @@
       },
       created: function(){
         var self = this
-        $.get("/public/vps").then(function(data){
+        $.ajax({
+					url:"/public/vps",
+					method: "GET"
+				}).then(function(data){
           self.loading = false
           self.vpsList = data
         }).fail(function(resp){

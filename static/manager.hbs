@@ -100,7 +100,10 @@
           }
         })
         var freshData = function(){
-          $.get("/admin/vps").then(function(data){
+        $.ajax({
+					url:"/admin/vps",
+					method: "GET"
+				}).then(function(data){
             app.vpsList = data
           }).fail(function(resp){
             if(resp.status == 401){

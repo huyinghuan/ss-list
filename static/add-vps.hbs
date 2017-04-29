@@ -77,7 +77,12 @@
           methods:{
             save: function(){
               var self = this
-              $.post("/admin/vps", this.vps).then(function(){
+              $.ajax({
+                url:"/admin/vps",
+                method: "POST",
+                data: this.vps
+              })
+              .then(function(){
                 self.vps = {
                   encryption: "aes-256-cfb",
                   port:"443",
