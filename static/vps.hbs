@@ -1,9 +1,32 @@
- <html>
-{{import "module/pc-header.hbs"}}
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="title" content="ss">
+  <meta name="description" content="ss">
+  <meta name="keywords" content="ss">
+  <title>ss account</title>
+  <script src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css">
+  <style>
+    .pure-menu-item{
+      height:  inherit;
+    }
+    table{
+      width: 100%;
+    }
+  </style>
+</head>
+
 <body>
+  {{!--
   <div class="ui grid" id="container">
     <div class="sixteen wide column">
-     {{import "module/pc-top-nav.hbs"}}
+      <div class="ui menu">
+        <div class="header item"><i class="left delicious icon"></i>ss</div>
+      </div>
       <div class="ui bottom attached segment pushable">
         <div class="pusher">
           <div class="ui basic segment">
@@ -23,18 +46,20 @@
                   </thead>
                   <tbody v-if="!loading">
                     {{{{raw}}}}
-                     <tr v-for="vps in vpsList">
-                       <td>{{ vps.ip }}</td>
-                       <td>{{vps.port}}</td>
-                       <td>{{vps.password}}</td>
-                       <td>{{vps.encryption}}</td>
-                       <td>{{vps.network}}</td>
-                       <td>{{vps.data_next_reset}}</td>
-                     </tr>
-                     {{{{/raw}}}}
+                    <tr v-for="vps in vpsList">
+                      <td>{{ vps.ip }}</td>
+                      <td>{{vps.port}}</td>
+                      <td>{{vps.password}}</td>
+                      <td>{{vps.encryption}}</td>
+                      <td>{{vps.network}}</td>
+                      <td>{{vps.data_next_reset}}</td>
+                    </tr>
+                    {{{{/raw}}}}
                   </tbody>
                   <tbody v-if="loading">
-                    <tr><td colspan="6">数据加载中,请稍后...</td></tr>
+                    <tr>
+                      <td colspan="6">数据加载中,请稍后...</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -44,8 +69,62 @@
         </div>
       </div>
     </div>
-  
   </div>
+  --}}
+  
+  <div class="pure-g" id="container">
+    <div class="pure-u-1">
+    <div class="pure-menu pure-menu-horizontal">
+    <a href="https://apying.com" class="pure-menu-heading pure-menu-link">APYING.COM</a>
+    <ul class="pure-menu-list">
+      <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+        <a href="javascript:void(0)" id="menuLink1" class="pure-menu-link">下载ss</a>
+        <ul class="pure-menu-children">
+          <li class="pure-menu-item"><a href="https://itunes.apple.com/cn/app/wingy-http-s-socks5-proxy-utility/id1178584911?mt=8" class="pure-menu-link">iphone</a></li>
+          <li class="pure-menu-item"><a href="https://github.com/shadowsocks/shadowsocks-libev"  class="pure-menu-link">Mac shell</a></li>
+          <li class="pure-menu-item"><a href="https://github.com/shadowsocks/ShadowsocksX-NG/releases/download/v1.5.0/ShadowsocksX-NG-1.5.0.zip"  class="pure-menu-link">Mac GUI</a></li>
+          <li class="pure-menu-item"><a href="https://github.com/shadowsocks/shadowsocks-libev" class="pure-menu-link">Linux shell</a></li>
+          <li class="pure-menu-item"><a href="https://github.com/shadowsocks/shadowsocks-qt5/releases/download/v2.8.0/ss-qt5-v2.8.0-win64.7z" class="pure-menu-link">Windows7及以上</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+    </div>
+    <div class="pure-u-1">
+      <table class="pure-table pure-table-horizontal ">
+        <thead>
+          <tr>
+            <th>IP</th>
+            <th>Port</th>
+            <th>Password</th>
+            <th>加密</th>
+            <th>剩余流量</th>
+            <th>重置时间</th>
+          </tr>
+        </thead>
+        <tbody v-if="!loading">
+          {{{{raw}}}}
+          <tr v-for="vps in vpsList">
+            <td>{{ vps.ip }}</td>
+            <td>{{vps.port}}</td>
+            <td>{{vps.password}}</td>
+            <td>{{vps.encryption}}</td>
+            <td>{{vps.network}}</td>
+            <td>{{vps.data_next_reset}}</td>
+          </tr>
+          {{{{/raw}}}}
+        </tbody>
+        <tbody v-if="loading">
+          <tr>
+            <td colspan="6">数据加载中,请稍后...</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+
   <script src="//cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
   <script>
     var app = new Vue({
@@ -54,24 +133,22 @@
         vpsList: [],
         loading: true
       },
-      created: function(){
+      created: function () {
         var self = this
         $.ajax({
-					url:"/public/vps",
-					method: "GET",
-          success: function(data){
+          url: "/public/vps",
+          method: "GET",
+          success: function (data) {
             self.loading = false
             self.vpsList = data
           },
-          error: function(resp){
-            if(resp.status == 401){
-              location.href="/login.html"
-            }
+          error: function (resp) {
+            alert('数据加载错误')
           }
-				})
+        })
       }
     })
-    
   </script>
 </body>
+
 </html>
