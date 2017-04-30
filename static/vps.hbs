@@ -21,57 +21,6 @@
 </head>
 
 <body>
-  {{!--
-  <div class="ui grid" id="container">
-    <div class="sixteen wide column">
-      <div class="ui menu">
-        <div class="header item"><i class="left delicious icon"></i>ss</div>
-      </div>
-      <div class="ui bottom attached segment pushable">
-        <div class="pusher">
-          <div class="ui basic segment">
-            <div class="ui grid">
-              <div class="sixteen wide column datalist">
-                <table class="ui selectable celled striped table">
-                  <thead>
-                    <tr>
-                      <!--<th>管理员ID</th>-->
-                      <th>IP</th>
-                      <th>Port</th>
-                      <th>Password</th>
-                      <th>加密</th>
-                      <th>剩余流量</th>
-                      <th>重置时间</th>
-                    </tr>
-                  </thead>
-                  <tbody v-if="!loading">
-                    {{{{raw}}}}
-                    <tr v-for="vps in vpsList">
-                      <td>{{ vps.ip }}</td>
-                      <td>{{vps.port}}</td>
-                      <td>{{vps.password}}</td>
-                      <td>{{vps.encryption}}</td>
-                      <td>{{vps.network}}</td>
-                      <td>{{vps.data_next_reset}}</td>
-                    </tr>
-                    {{{{/raw}}}}
-                  </tbody>
-                  <tbody v-if="loading">
-                    <tr>
-                      <td colspan="6">数据加载中,请稍后...</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="ui center aligned container copyright">copyright©apying.com</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  --}}
-  
   <div class="pure-g" id="container">
     <div class="pure-u-1">
     <div class="pure-menu pure-menu-horizontal">
