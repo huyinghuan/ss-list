@@ -86,7 +86,7 @@
         var self = this
         $.ajax({
           url: "/public/vps",
-          method: "GET",
+          type: "GET",
           success: function (data) {
             self.loading = false
             self.vpsList = data

@@ -79,7 +79,7 @@
               var self = this
               $.ajax({
                 url: "/admin/vps",
-                method: "POST",
+                type: "POST",
                 data: this.vps,
                 success: function () {
                   self.vps = {

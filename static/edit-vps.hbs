@@ -91,7 +91,7 @@
               delete this.vps["id"]
               $.ajax({
                 url:"/admin/vps/"+id,
-                method: "PUT",
+                type: "PUT",
                 data: this.vps
               }).done(function(){
                 alert('modify success')

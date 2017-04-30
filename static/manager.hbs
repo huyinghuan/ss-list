@@ -74,7 +74,7 @@
             lock:function(id){
               $.ajax({
                 url:"/admin/vps/"+id,
-                method: "PUT",
+                type: "PUT",
                 data: {private: true},
                 success: freshData,
                 error: function(resp){
@@ -87,7 +87,7 @@
             unlock:function(id){
               $.ajax({
                 url:"/admin/vps/"+id,
-                method: "PUT",
+                type: "PUT",
                 data: {private: false},
                 success: freshData,
                 error: function(resp){

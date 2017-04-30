@@ -32,7 +32,7 @@
 			$("#login").click(function(){
 				$.ajax({
 					url:"/admin/login",
-					method: "POST",
+					type: "POST",
 					data:  {name: $("#name").val(), password: $("#password").val()},
 					success: function(data){
 						location.href = "/manager.html"
