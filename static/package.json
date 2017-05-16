@@ -29,6 +29,9 @@
       "module"
     ]
   },
+  "scripts": {
+    "build": "sr build -o /var/www/apying"
+  },
   "description": "",
   "devDependencies": {
     "sp-hbs": "1.3.3",
