@@ -1,6 +1,7 @@
 package bean
 
 import (
+	"log"
 	"ss-list/schema"
 	"ss-list/utils"
 
@@ -8,15 +9,27 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func GetDBConenct() (*xorm.Engine, error) {
+var engine *xorm.Engine
+
+func InitConnect() {
 	config := utils.GetConfig()
-	engine, connectErr := xorm.NewEngine(config.Db.Driver, config.Db.Connect)
+	var connectErr error
+	engine, connectErr = xorm.NewEngine(config.Db.Driver, config.Db.Connect)
 	if connectErr != nil {
-		return nil, connectErr
+		log.Fatalln(connectErr)
+		return
 	}
-	err := engine.Sync2(new(schema.Vps))
+	if engine.Ping() != nil {
+		log.Fatalln("数据库连接超时...")
+	} else {
+		log.Printf("数据库连接成功")
+	}
+	err := engine.Sync2(new(schema.Log))
 	if err != nil {
-		return nil, err
+		log.Fatalln("数据库同步表格失败")
 	}
-	return engine, nil
+}
+
+func GetDBConect() *xorm.Engine {
+	return engine
 }
