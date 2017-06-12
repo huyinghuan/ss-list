@@ -24,12 +24,12 @@ func InitConnect() {
 	} else {
 		log.Printf("数据库连接成功")
 	}
-	err := engine.Sync2(new(schema.Log))
+	err := engine.Sync2(new(schema.Vps))
 	if err != nil {
 		log.Fatalln("数据库同步表格失败")
 	}
 }
 
-func GetDBConect() *xorm.Engine {
+func GetDBConnect() *xorm.Engine {
 	return engine
 }
