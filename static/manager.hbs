@@ -31,6 +31,8 @@
                       <th>port</th>
                       <th>password</th>
                       <th>scret</th>
+                      <th>剩余流量</th>
+                      <th>重置时间</th>
                       <th>veid</th>
                       <th>apikey</th>
                       <th>private</th>
@@ -44,11 +46,12 @@
                       <td>{{vps.port}}</td>
                       <td>{{vps.password}}</td>
                       <td>{{vps.encryption}}</td>
+                      <td>{{vps.network}}</td>
+                      <td>{{vps.data_next_reset}}</td>
                       <td>{{vps.veid}}</td>
                       <td>{{vps.apikey}}</td>
                       <td>{{vps.private}}</td>
                       <td>
-                        
                         <button class="ui red mini button" v-if="!vps.private" v-on:click="lock(vps.id)">锁定</button>
                         <button class="ui green mini button" v-if="vps.private" v-on:click="unlock(vps.id)">公开</button>
                         <a class="ui blue mini button" :href="'/edit-vps.html?id=' + vps.id">编辑</a>
